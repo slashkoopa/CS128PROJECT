@@ -73,7 +73,8 @@ public class Game_Activity extends AppCompatActivity {
         int sec = (int) (tUpdate/1000);
         sec = sec%60;
         int milliSec =(int) (tUpdate%1000);
-        time_txt1.setText(String.format("%02d",sec)+":"+String.format("%02d",milliSec));
+        time_txt1.setText(String.format("%01d",sec)+":"+String.format("%02d",milliSec));
+        System.out.println(milliSec);
         //
     }
 }
