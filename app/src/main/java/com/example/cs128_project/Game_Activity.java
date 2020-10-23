@@ -20,7 +20,7 @@ public class Game_Activity extends AppCompatActivity {
     Animation fade_out_anim;
     TextView time_txt1;
     Button shootbutton;
-    public Stopwatch stoptime ;
+    public Stopwatch stopwatch ;
     long startTime = 0;
 
     @Override
@@ -52,8 +52,7 @@ public class Game_Activity extends AppCompatActivity {
                 }
                 bangimg.setVisibility(View.VISIBLE);
                 shootbutton.setVisibility(View.VISIBLE);
-
-                startTime = SystemClock.uptimeMillis();
+                stopwatch.start();
             }
         }, 6000);
         //
@@ -67,7 +66,7 @@ public class Game_Activity extends AppCompatActivity {
         TextView time_txt1=(TextView)findViewById(R.id.timetxt1);
         //plan on moving this to stopwatch class
         Long tbuff = 0L;
-        long millis = SystemClock.uptimeMillis()- startTime;
+        long millis = stopwatch.getElapsedTime();
         double seconds = (double) (millis / 1000);
         Long tUpdate = tbuff + millis;
         int sec = (int) (tUpdate/1000);
@@ -75,6 +74,7 @@ public class Game_Activity extends AppCompatActivity {
         int milliSec =(int) (tUpdate%1000);
         time_txt1.setText(String.format("%01d",sec)+":"+String.format("%02d",milliSec));
         System.out.println(milliSec);
+        stopwatch.reset();
         //
     }
 }

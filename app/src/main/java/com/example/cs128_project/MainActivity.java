@@ -27,7 +27,5 @@ public class MainActivity extends AppCompatActivity {
     public void startGame(View view) {
         Intent intent = new Intent(MainActivity.this, Game_Activity.class);
         startActivity(intent);
-        //test changes
-        //test changes2
     }
 }
