@@ -3,15 +3,18 @@
 
 =======
     <string name="number_of_rounds">Number of Rounds:</string>
-    <string name="_1">1</string>
-    <string name="_2">2</string>
-    <string name="_3">3</string>
-    <string name="_4">4</string>
-    <string name="_5">5</string>
+    <string-array name="rounds">
+        <item>Round 1</item>
+        <item>Round 2</item>
+        <item>Round 3</item>
+        <item>Round 4</item>
+        <item>Round 5</item>
+    </string-array>
     <string name="player_1_color">Player 1 color</string>
     <string name="player_2_color">Player 2 Color</string>
     <string name="guidelines">Guidelines</string>
     <string name="paragraph">Quickly tap anywhere on your side of the screen to aim and fire bullets towards the enemy.\n\n
                              Tap fast when you see the word shoot in front of the screen.</string>
 
+    <string name="player1_red"></string>
 </resources>
