@@ -21,11 +21,12 @@ import java.util.concurrent.TimeUnit;
 
 public class Game_Activity extends AppCompatActivity {
     Animation fade_out_anim;
-    TextView time_txt1;
-    TextView time_txt2;
+    public TextView time_txt1;
+    public TextView time_txt2;
     Button shootbutton;
     Button shootbutton2;
     public Stopwatch stoptime = new Stopwatch(0);
+    public Stopwatch stoptime2 = new Stopwatch(0);
 
     long startTime = 0;
     private RelativeLayout screenOne = null; //screen for player one
@@ -61,7 +62,6 @@ public class Game_Activity extends AppCompatActivity {
                     time_txt1.setText(String.format("%01d", sec) + ":" + String.format("%02d", milliSec));
 
                     screenTwo.setOnTouchListener(null); //disable ontouch event of player two
-                    screenOne.setOnTouchListener(null); //disable ontouch event of player two
                     //show result
                     moveToResults();
                 }
@@ -78,7 +78,7 @@ public class Game_Activity extends AppCompatActivity {
                     stoptime.stop();
                     sec = stoptime.getSec();
                     milliSec = stoptime.getMilliSec();
-                    time_txt1.setText(String.format("%01d", sec) + ":" + String.format("%02d", milliSec));
+                    time_txt2.setText(String.format("%01d", sec) + ":" + String.format("%02d", milliSec));
 
                     screenOne.setOnTouchListener(null); //disable ontouch event of player one
                     //show result
@@ -117,6 +117,7 @@ public class Game_Activity extends AppCompatActivity {
 //                startTime = SystemClock.uptimeMillis();
 
                 stoptime.start();
+                stoptime2.start();
             }
         }, 6000);
         //
