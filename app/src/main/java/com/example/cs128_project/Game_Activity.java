@@ -1,5 +1,6 @@
 package com.example.cs128_project;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -24,10 +25,13 @@ public class Game_Activity extends AppCompatActivity {
     TextView time_txt2;
     Button shootbutton;
     Button shootbutton2;
-    public Stopwatch stoptime ;
+    public Stopwatch stoptime = new Stopwatch(0);
+
     long startTime = 0;
     private RelativeLayout screenOne = null; //screen for player one
     private RelativeLayout screenTwo = null; //screen for player two
+    public int milliSec;
+    public int sec;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,38 +53,36 @@ public class Game_Activity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction()== MotionEvent.ACTION_DOWN) {
+                    //maybe shouldve used multithreading for time
                     TextView time_txt1 = (TextView) findViewById(R.id.timetxt1);
-                    //plan on moving this to stopwatch class
-                    Long tbuff = 0L;
-                    long millis = SystemClock.uptimeMillis() - startTime;
-                    double seconds = (double) (millis / 1000);
-                    Long tUpdate = tbuff + millis;
-                    int sec = (int) (tUpdate / 1000);
-                    sec = sec % 60;
-                    int milliSec = (int) (tUpdate % 1000);
+                    stoptime.stop();
+                    sec = stoptime.getSec();
+                    milliSec = stoptime.getMilliSec();
                     time_txt1.setText(String.format("%01d", sec) + ":" + String.format("%02d", milliSec));
-                    System.out.println(milliSec);
+
+                    screenTwo.setOnTouchListener(null); //disable ontouch event of player two
+                    screenOne.setOnTouchListener(null); //disable ontouch event of player two
+                    //show result
+                    moveToResults();
                 }
                 return true;
             }
         });
 
         screenTwo = (RelativeLayout) findViewById(R.id.screenTwo); //sets touch listener if the player two touched the screen
-        screenTwo.setOnTouchListener(new View.OnTouchListener() {
+            screenTwo.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction()== MotionEvent.ACTION_DOWN) {
                     TextView time_txt2 = (TextView) findViewById(R.id.timetxt2);
-                    //plan on moving this to stopwatch class
-                    Long tbuff = 0L;
-                    long millis = SystemClock.uptimeMillis() - startTime;
-                    double seconds = (double) (millis / 1000);
-                    Long tUpdate = tbuff + millis;
-                    int sec = (int) (tUpdate / 1000);
-                    sec = sec % 60;
-                    int milliSec = (int) (tUpdate % 1000);
-                    time_txt2.setText(String.format("%01d", sec) + ":" + String.format("%02d", milliSec));
-                    System.out.println(milliSec);
+                    stoptime.stop();
+                    sec = stoptime.getSec();
+                    milliSec = stoptime.getMilliSec();
+                    time_txt1.setText(String.format("%01d", sec) + ":" + String.format("%02d", milliSec));
+
+                    screenOne.setOnTouchListener(null); //disable ontouch event of player one
+                    //show result
+                    moveToResults();
                 }
                 return true;
             }
@@ -112,14 +114,26 @@ public class Game_Activity extends AppCompatActivity {
                 //shootbutton.setVisibility(View.VISIBLE);
                 //shootbutton2.setVisibility(View.VISIBLE);
 
-                startTime = SystemClock.uptimeMillis();
+//                startTime = SystemClock.uptimeMillis();
+
+                stoptime.start();
             }
         }, 6000);
         //
+
+
     }
 
     public void gameStart(){
 
     }
-
+    public void moveToResults(){
+        Intent intent = new Intent(getApplicationContext(),game_result.class);
+        Bundle extras = new Bundle();
+        extras.putInt("MILLISEC",stoptime.getMilliSec());
+        extras.putInt("SECONDS",stoptime.getSec());
+        intent.putExtras(extras);
+        stoptime.reset();
+        startActivity(intent);
+    }
 }
