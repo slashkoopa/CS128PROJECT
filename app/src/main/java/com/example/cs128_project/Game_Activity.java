@@ -28,6 +28,8 @@ public class Game_Activity extends AppCompatActivity {
     long startTime = 0;
     private RelativeLayout screenOne = null; //screen for player one
     private RelativeLayout screenTwo = null; //screen for player two
+    private ImageView user1ImageView;
+    private ImageView user2ImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class Game_Activity extends AppCompatActivity {
         final FadingTextView ftxt=(FadingTextView)findViewById(R.id.fade_text);
         final FadingTextView ftxt2=(FadingTextView)findViewById(R.id.fade_text2);
         final ImageView bangimg =(ImageView)findViewById(R.id.bang);
+
 
         //final Button shootbutton=(Button)findViewById(R.id.shootbtn);
         //final Button shootbutton2=(Button)findViewById(R.id.shootbtn2);
@@ -64,6 +67,16 @@ public class Game_Activity extends AppCompatActivity {
                 return true;
             }
         });
+
+        // Calling Application class (see application tag in AndroidManifest.xml)
+        final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
+
+        user1ImageView = findViewById(R.id.PlayerChar1);
+        user1ImageView.setImageResource(globalVariable.getUser1color());
+
+        user2ImageView = findViewById(R.id.PlayerChar2);
+        user2ImageView.setImageResource(globalVariable.getUser2color());
+
 
         screenTwo = (RelativeLayout) findViewById(R.id.screenTwo); //sets touch listener if the player two touched the screen
         screenTwo.setOnTouchListener(new View.OnTouchListener() {

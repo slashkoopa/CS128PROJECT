@@ -3,13 +3,14 @@
     package="com.example.cs128_project">
 
     <application
+        android:name="com.example.cs128_project.GlobalClass"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GuidelineActivity"></activity>
+        <activity android:name=".GuidelineActivity" />
         <activity android:name=".Game_Activity" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -18,10 +19,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

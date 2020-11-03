@@ -17,7 +17,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-       <com.tomer.fadingtextview.FadingTextView
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/fade_text2"
+            android:rotation = "180"
+            android:id="@+id/PlayerChar2" />
+
+        <com.tomer.fadingtextview.FadingTextView
             android:id="@+id/fade_text2"
             android:rotation = "180"
             android:layout_width="wrap_content"
@@ -94,6 +101,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/timetxt1"
+            android:id="@+id/PlayerChar1" />
 
         <com.tomer.fadingtextview.FadingTextView
             android:id="@+id/fade_text"
