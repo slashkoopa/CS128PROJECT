@@ -5,7 +5,6 @@ import android.app.Application;
 public class GlobalClass extends Application{
 
     private int user1color;
-    private Boolean user1Alive;
     private int user2color;
 
     public int getUser2color() {
@@ -24,11 +23,4 @@ public class GlobalClass extends Application{
         this.user1color = user1color;
     }
 
-    public Boolean getUser1Alive() {
-        return user1Alive;
-    }
-
-    public void setUser1Alive(Boolean user1Alive) {
-        this.user1Alive = user1Alive;
-    }
 }
