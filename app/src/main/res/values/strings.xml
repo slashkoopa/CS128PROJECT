@@ -13,6 +13,8 @@
     <string name="player_1_color">Player 1 color</string>
     <string name="player_2_color">Player 2 Color</string>
     <string name="guidelines">Guidelines</string>
+    <string name="developers">Developers</string>
+    <string name="members">Eva Depalog \nFranco Lagarde \nLenz Baron Balita \nFaeka Ahmed \nAlfred Quiambao \nJustine Pascua</string>
     <string name="paragraph">Quickly tap anywhere on your side of the screen to aim and fire bullets towards the enemy.\n\n
                              Tap fast when you see the word shoot in front of the screen.</string>
 
