@@ -33,6 +33,7 @@ public class Game_Activity extends AppCompatActivity {
     private RelativeLayout screenTwo = null; //screen for player two
     public int milliSec;
     public int sec;
+    private ImageView user1ImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +75,15 @@ public class Game_Activity extends AppCompatActivity {
                 return true;
             }
         });
+
+        // Calling Application class (see application tag in AndroidManifest.xml)
+        final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
+
+        user1ImageView = findViewById(R.id.PlayerChar);
+        user1ImageView.setImageResource(globalVariable.getUser1color());
+
+        //user2ImageView = findViewById(R.id.PlayerChar);
+        //user2ImageView.setImageResource(globalVariable.getUser1color());
 
         screenTwo = (RelativeLayout) findViewById(R.id.screenTwo); //sets touch listener if the player two touched the screen
         screenTwo.setOnTouchListener(new View.OnTouchListener() {

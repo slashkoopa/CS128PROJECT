@@ -24,6 +24,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Calling Application class (see application tag in AndroidManifest.xml)
+        final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
+
         FloatingActionButton floatingActionButton = findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,36 +48,45 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             roundButton[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    switch(v.getId()){
+                    int color = v.getId();
+                    switch(color){
                         case R.id.red:
+                            globalVariable.setUser1color(R.drawable.amongusred);
                             Toast.makeText(getApplicationContext(), "Player 1 changed color to red", Toast.LENGTH_SHORT).show();
                             break;
 
                         case R.id.green:
+                            globalVariable.setUser1color(R.drawable.amongusgreen);
                             Toast.makeText(getApplicationContext(), "Player 1 changed color to green", Toast.LENGTH_SHORT).show();
                             break;
 
                         case R.id.blue:
+                            globalVariable.setUser1color(R.drawable.amongusblue);
                             Toast.makeText(getApplicationContext(), "Player 1 changed color to blue", Toast.LENGTH_SHORT).show();
                             break;
 
                         case R.id.brown:
+                            globalVariable.setUser1color(R.drawable.amongusbrown);
                             Toast.makeText(getApplicationContext(), "Player 1 changed color to brown", Toast.LENGTH_SHORT).show();
                             break;
 
                         case R.id.red2:
+                            globalVariable.setUser1color(R.drawable.amongusred);
                             Toast.makeText(getApplicationContext(), "Player 2 changed color to red", Toast.LENGTH_SHORT).show();
                             break;
 
                         case R.id.green2:
+                            globalVariable.setUser1color(R.drawable.amongusgreen);
                             Toast.makeText(getApplicationContext(), "Player 2 changed color to green", Toast.LENGTH_SHORT).show();
                             break;
 
                         case R.id.blue2:
+                            globalVariable.setUser1color(R.drawable.amongusblue);
                             Toast.makeText(getApplicationContext(), "Player 2 changed color to blue", Toast.LENGTH_SHORT).show();
                             break;
 
                         case R.id.brown2:
+                            globalVariable.setUser1color(R.drawable.amongusbrown);
                             Toast.makeText(getApplicationContext(), "Player 2 changed color to brown", Toast.LENGTH_SHORT).show();
                             break;
                     }
@@ -84,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     public void startGame(View view) {
-        Intent intent = new Intent(MainActivity.this, Game_Activity.class);
+        Intent intent = new Intent(getBaseContext(), Game_Activity.class);
         startActivity(intent);
     }
 
