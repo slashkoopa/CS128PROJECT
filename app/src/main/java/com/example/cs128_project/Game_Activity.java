@@ -38,6 +38,12 @@ public class Game_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_);
+
+        gameStart();
+
+    }
+
+    public void gameStart(){
         final FadingTextView ftxt=(FadingTextView)findViewById(R.id.fade_text);
         final FadingTextView ftxt2=(FadingTextView)findViewById(R.id.fade_text2);
         final ImageView bangimg =(ImageView)findViewById(R.id.bang);
@@ -70,7 +76,7 @@ public class Game_Activity extends AppCompatActivity {
         });
 
         screenTwo = (RelativeLayout) findViewById(R.id.screenTwo); //sets touch listener if the player two touched the screen
-            screenTwo.setOnTouchListener(new View.OnTouchListener() {
+        screenTwo.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction()== MotionEvent.ACTION_DOWN) {
@@ -121,11 +127,6 @@ public class Game_Activity extends AppCompatActivity {
             }
         }, 6000);
         //
-
-
-    }
-
-    public void gameStart(){
 
     }
     public void moveToResults(){
