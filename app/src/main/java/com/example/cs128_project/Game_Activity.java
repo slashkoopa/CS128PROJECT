@@ -30,6 +30,10 @@ public class Game_Activity extends AppCompatActivity {
     private RelativeLayout screenTwo = null; //screen for player two
     private ImageView user1ImageView;
     private ImageView user2ImageView;
+    private ImageView user1gun;
+    private ImageView user2gun;
+    private ImageView user1dead;
+    private ImageView user2dead;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +81,6 @@ public class Game_Activity extends AppCompatActivity {
         user2ImageView = findViewById(R.id.PlayerChar2);
         user2ImageView.setImageResource(globalVariable.getUser2color());
 
-
         screenTwo = (RelativeLayout) findViewById(R.id.screenTwo); //sets touch listener if the player two touched the screen
         screenTwo.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -122,6 +125,16 @@ public class Game_Activity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 bangimg.setVisibility(View.VISIBLE);
+
+                user1gun = findViewById(R.id.PlayerGun1);
+                user1gun.setImageResource(globalVariable.getUser1gun());
+
+                user2gun = findViewById(R.id.PlayerGun2);
+                user2gun.setImageResource(globalVariable.getUser2gun());
+
+                user1gun.setVisibility(View.VISIBLE);
+                user2gun.setVisibility(View.VISIBLE);
+
                 //shootbutton.setVisibility(View.VISIBLE);
                 //shootbutton2.setVisibility(View.VISIBLE);
 

@@ -52,41 +52,57 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     switch(color){
                         case R.id.red:
                             globalVariable.setUser1color(R.drawable.amongusred);
+                            globalVariable.setUser1gun(R.drawable.redgun);
+                            globalVariable.setUser1dead(R.drawable.deadred);
                             Toast.makeText(getApplicationContext(), "Player 1 changed color to red", Toast.LENGTH_SHORT).show();
                             break;
 
                         case R.id.green:
                             globalVariable.setUser1color(R.drawable.amongusgreen);
+                            globalVariable.setUser1gun(R.drawable.greengun);
+                            globalVariable.setUser1dead(R.drawable.deadgreen);
                             Toast.makeText(getApplicationContext(), "Player 1 changed color to green", Toast.LENGTH_SHORT).show();
                             break;
 
                         case R.id.blue:
                             globalVariable.setUser1color(R.drawable.amongusblue);
+                            globalVariable.setUser1gun(R.drawable.bluegun);
+                            globalVariable.setUser1dead(R.drawable.deadblue);
                             Toast.makeText(getApplicationContext(), "Player 1 changed color to blue", Toast.LENGTH_SHORT).show();
                             break;
 
                         case R.id.brown:
                             globalVariable.setUser1color(R.drawable.amongusbrown);
+                            globalVariable.setUser1gun(R.drawable.browngun);
+                            globalVariable.setUser1dead(R.drawable.deadbrown);
                             Toast.makeText(getApplicationContext(), "Player 1 changed color to brown", Toast.LENGTH_SHORT).show();
                             break;
 
                         case R.id.red2:
                             globalVariable.setUser2color(R.drawable.amongusred);
+                            globalVariable.setUser2gun(R.drawable.redgun);
+                            globalVariable.setUser2dead(R.drawable.deadred);
                             Toast.makeText(getApplicationContext(), "Player 2 changed color to red", Toast.LENGTH_SHORT).show();
                             break;
 
                         case R.id.green2:
                             globalVariable.setUser2color(R.drawable.amongusgreen);
+                            globalVariable.setUser2gun(R.drawable.greengun);
+                            globalVariable.setUser2dead(R.drawable.deadgreen);
                             Toast.makeText(getApplicationContext(), "Player 2 changed color to green", Toast.LENGTH_SHORT).show();
                             break;
 
                         case R.id.blue2:
                             globalVariable.setUser2color(R.drawable.amongusblue);
+                            globalVariable.setUser2gun(R.drawable.bluegun);
+                            globalVariable.setUser2dead(R.drawable.deadblue);
                             Toast.makeText(getApplicationContext(), "Player 2 changed color to blue", Toast.LENGTH_SHORT).show();
                             break;
 
                         case R.id.brown2:
                             globalVariable.setUser2color(R.drawable.amongusbrown);
+                            globalVariable.setUser2gun(R.drawable.browngun);
+                            globalVariable.setUser2dead(R.drawable.deadbrown);
                             Toast.makeText(getApplicationContext(), "Player 2 changed color to brown", Toast.LENGTH_SHORT).show();
                             break;
                     }
