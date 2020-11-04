@@ -53,20 +53,31 @@ public class Game_Activity extends AppCompatActivity {
         final FadingTextView ftxt=(FadingTextView)findViewById(R.id.fade_text);
         final FadingTextView ftxt2=(FadingTextView)findViewById(R.id.fade_text2);
         final ImageView bangimg =(ImageView)findViewById(R.id.bang);
-
-
-        //final Button shootbutton=(Button)findViewById(R.id.shootbtn);
-        //final Button shootbutton2=(Button)findViewById(R.id.shootbtn2);
+        GlobalClass globalVariable = (GlobalClass) getApplicationContext();
 
         bangimg.setVisibility(View.INVISIBLE);
-        //shootbutton.setVisibility(View.INVISIBLE);
-        //shootbutton2.setVisibility(View.INVISIBLE);
+
+        user1ImageView = findViewById(R.id.PlayerChar1);
+        user1ImageView.setImageResource(globalVariable.getUser1color());
+
+        user2ImageView = findViewById(R.id.PlayerChar2);
+        user2ImageView.setImageResource(globalVariable.getUser2color());
+
+        //P1 GUN PIC
+        user1gun = findViewById(R.id.PlayerGun1);
+        user1gun.setImageResource(globalVariable.getUser1gun());
+        user1gun.setVisibility(View.INVISIBLE);
+        //P2 GUN PIC
+        user2gun = findViewById(R.id.PlayerGun2);
+        user2gun.setImageResource(globalVariable.getUser2gun());
+        user2gun.setVisibility(View.INVISIBLE);
 
         screenOne = (RelativeLayout) findViewById(R.id.screenOne); //sets touch listener if the player one touched the screen
         screenOne.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction()== MotionEvent.ACTION_DOWN) {
+
                     //maybe shouldve used multithreading for time
                     TextView time_txt1 = (TextView) findViewById(R.id.timetxt1);
                     stoptime.stop();
@@ -75,6 +86,7 @@ public class Game_Activity extends AppCompatActivity {
                     time_txt1.setText(String.format("%01d", sec) + ":" + String.format("%02d", milliSec));
 
                     screenTwo.setOnTouchListener(null); //disable ontouch event of player two
+                    user1gun.setVisibility(View.VISIBLE);
                     //show result
                     moveToResults();
                 }
@@ -83,14 +95,6 @@ public class Game_Activity extends AppCompatActivity {
         });
 
         // Calling Application class (see application tag in AndroidManifest.xml)
-        final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
-
-        user1ImageView = findViewById(R.id.PlayerChar1);
-        user1ImageView.setImageResource(globalVariable.getUser1color());
-
-        user2ImageView = findViewById(R.id.PlayerChar2);
-        user2ImageView.setImageResource(globalVariable.getUser2color());
-
         screenTwo = (RelativeLayout) findViewById(R.id.screenTwo); //sets touch listener if the player two touched the screen
         screenTwo.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -103,6 +107,7 @@ public class Game_Activity extends AppCompatActivity {
                     time_txt2.setText(String.format("%01d", sec) + ":" + String.format("%02d", milliSec));
 
                     screenOne.setOnTouchListener(null); //disable ontouch event of player one
+                    user2gun.setVisibility(View.VISIBLE);
                     //show result
                     moveToResults();
                 }
@@ -133,21 +138,6 @@ public class Game_Activity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 bangimg.setVisibility(View.VISIBLE);
-
-                user1gun = findViewById(R.id.PlayerGun1);
-                user1gun.setImageResource(globalVariable.getUser1gun());
-
-                user2gun = findViewById(R.id.PlayerGun2);
-                user2gun.setImageResource(globalVariable.getUser2gun());
-
-                user1gun.setVisibility(View.VISIBLE);
-                user2gun.setVisibility(View.VISIBLE);
-
-                //shootbutton.setVisibility(View.VISIBLE);
-                //shootbutton2.setVisibility(View.VISIBLE);
-
-//                startTime = SystemClock.uptimeMillis();
-
                 stoptime.start();
                 stoptime2.start();
             }
