@@ -34,6 +34,11 @@ public class Game_Activity extends AppCompatActivity {
     public int milliSec;
     public int sec;
     private ImageView user1ImageView;
+    private ImageView user2ImageView;
+    private ImageView user1gun;
+    private ImageView user2gun;
+    private ImageView user1dead;
+    private ImageView user2dead;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +53,7 @@ public class Game_Activity extends AppCompatActivity {
         final FadingTextView ftxt=(FadingTextView)findViewById(R.id.fade_text);
         final FadingTextView ftxt2=(FadingTextView)findViewById(R.id.fade_text2);
         final ImageView bangimg =(ImageView)findViewById(R.id.bang);
+
 
         //final Button shootbutton=(Button)findViewById(R.id.shootbtn);
         //final Button shootbutton2=(Button)findViewById(R.id.shootbtn2);
@@ -79,11 +85,11 @@ public class Game_Activity extends AppCompatActivity {
         // Calling Application class (see application tag in AndroidManifest.xml)
         final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
 
-        user1ImageView = findViewById(R.id.PlayerChar);
+        user1ImageView = findViewById(R.id.PlayerChar1);
         user1ImageView.setImageResource(globalVariable.getUser1color());
 
-        //user2ImageView = findViewById(R.id.PlayerChar);
-        //user2ImageView.setImageResource(globalVariable.getUser1color());
+        user2ImageView = findViewById(R.id.PlayerChar2);
+        user2ImageView.setImageResource(globalVariable.getUser2color());
 
         screenTwo = (RelativeLayout) findViewById(R.id.screenTwo); //sets touch listener if the player two touched the screen
         screenTwo.setOnTouchListener(new View.OnTouchListener() {
@@ -127,6 +133,16 @@ public class Game_Activity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 bangimg.setVisibility(View.VISIBLE);
+
+                user1gun = findViewById(R.id.PlayerGun1);
+                user1gun.setImageResource(globalVariable.getUser1gun());
+
+                user2gun = findViewById(R.id.PlayerGun2);
+                user2gun.setImageResource(globalVariable.getUser2gun());
+
+                user1gun.setVisibility(View.VISIBLE);
+                user2gun.setVisibility(View.VISIBLE);
+
                 //shootbutton.setVisibility(View.VISIBLE);
                 //shootbutton2.setVisibility(View.VISIBLE);
 

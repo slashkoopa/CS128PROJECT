@@ -17,6 +17,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/fade_text2"
+            android:rotation = "180"
+            android:id="@+id/PlayerChar2" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/fade_text2"
+            android:rotation = "180"
+            android:id="@+id/PlayerGun2" />
+
         <com.tomer.fadingtextview.FadingTextView
             android:id="@+id/fade_text2"
             android:rotation = "180"
@@ -99,7 +113,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/timetxt1"
-            android:id="@+id/PlayerChar" />
+            android:id="@+id/PlayerChar1" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/timetxt1"
+            android:id="@+id/PlayerGun1" />
 
         <com.tomer.fadingtextview.FadingTextView
             android:id="@+id/fade_text"
