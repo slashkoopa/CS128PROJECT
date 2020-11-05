@@ -105,89 +105,11 @@ public class Game_Activity extends AppCompatActivity {
         user2dead = findViewById(R.id.playerDead2);
         user2dead.setImageResource(globalVariable.getUser2dead());
         user2dead.setVisibility(View.INVISIBLE);
-
-        screenOne = (RelativeLayout) findViewById(R.id.screenOne); //sets touch listener if the player one touched the screen
-        screenOne.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction()== MotionEvent.ACTION_DOWN) {
-
-                    //maybe shouldve used multithreading for time
-                    gshot.start(); //starts to play sound when player 1 clicks the screen
-                    TextView time_txt1 = (TextView) findViewById(R.id.timetxt1);
-                    stoptime.stop();
-                    sec = stoptime.getSec();
-                    milliSec = stoptime.getMilliSec();
-                    time_txt1.setText(String.format("%01d", sec) + ":" + String.format("%02d", milliSec));
-
-
-                    screenTwo.setOnTouchListener(null); //disable ontouch event of player two
-                    screenOne.setOnTouchListener(null);
-                    user1gun.setVisibility(View.VISIBLE);
-                    user2dead.setVisibility(View.VISIBLE);
-                    user2ImageView.setVisibility(View.INVISIBLE);
-                    //add p2 dead code here
-
-                    //code below will run after 6 seconds
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent intent = getIntent();
-                            int currentround = intent.getIntExtra("rounds",1); // gets current round number
-                            if(currentround==rounds){
-                                //show result
-
-                                moveToResults();
-                            }
-                            else{
-                                resetGame(currentround);
-                            }
-                        }
-                    }, 6000);
-                }
-                return true;
-            }
-        });
-
-        // Calling Application class (see application tag in AndroidManifest.xml)
         screenTwo = (RelativeLayout) findViewById(R.id.screenTwo); //sets touch listener if the player two touched the screen
-        screenTwo.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction()== MotionEvent.ACTION_DOWN) {
-                    gshot.start(); //starts to play sound when player 2 clicks the screen
-                    TextView time_txt2 = (TextView) findViewById(R.id.timetxt2);
-                    stoptime.stop();
-                    sec = stoptime.getSec();
-                    milliSec = stoptime.getMilliSec();
-                    time_txt2.setText(String.format("%01d", sec) + ":" + String.format("%02d", milliSec));
+        screenOne = (RelativeLayout) findViewById(R.id.screenOne); //sets touch listener if the player one touched the screen
+        screenOne.setEnabled(false);
+        screenTwo.setEnabled(false);
 
-
-                    screenOne.setOnTouchListener(null); //disable ontouch event of player one
-                    screenTwo.setOnTouchListener(null);
-                    user2gun.setVisibility(View.VISIBLE);
-                    user1dead.setVisibility(View.VISIBLE);
-                    user1ImageView.setVisibility(View.INVISIBLE);
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent intent = getIntent();
-                            int currentround = intent.getIntExtra("rounds",1); // gets current round number
-                            if(currentround==rounds){
-                                //show result
-
-                                moveToResults();
-                            }
-                            else{
-                                resetGame(currentround);
-                            }
-                        }
-                    }, 6000);
-
-                }
-                return true;
-            }
-        });
 
         fade_out_anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out);
         ftxt.startAnimation(fade_out_anim);
@@ -215,6 +137,89 @@ public class Game_Activity extends AppCompatActivity {
                 shootsnd.start();
                 stoptime.start();
                 stoptime2.start();
+                screenOne.setEnabled(true);
+                screenTwo.setEnabled(true);
+                screenOne.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if(event.getAction()== MotionEvent.ACTION_DOWN) {
+
+                            //maybe shouldve used multithreading for time
+                            gshot.start(); //starts to play sound when player 1 clicks the screen
+                            TextView time_txt1 = (TextView) findViewById(R.id.timetxt1);
+                            stoptime.stop();
+                            sec = stoptime.getSec();
+                            milliSec = stoptime.getMilliSec();
+                            time_txt1.setText(String.format("%01d", sec) + ":" + String.format("%02d", milliSec));
+
+
+                            screenTwo.setOnTouchListener(null); //disable ontouch event of player two
+                            screenOne.setOnTouchListener(null);
+                            user1gun.setVisibility(View.VISIBLE);
+                            user2dead.setVisibility(View.VISIBLE);
+                            user2ImageView.setVisibility(View.INVISIBLE);
+                            //add p2 dead code here
+
+                            //code below will run after 6 seconds
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent intent = getIntent();
+                                    int currentround = intent.getIntExtra("rounds",1); // gets current round number
+                                    if(currentround==rounds){
+                                        //show result
+
+                                        moveToResults();
+                                    }
+                                    else{
+                                        resetGame(currentround);
+                                    }
+                                }
+                            }, 6000);
+                        }
+                        return true;
+                    }
+                });
+
+                // Calling Application class (see application tag in AndroidManifest.xml)
+
+                screenTwo.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if(event.getAction()== MotionEvent.ACTION_DOWN) {
+                            gshot.start(); //starts to play sound when player 2 clicks the screen
+                            TextView time_txt2 = (TextView) findViewById(R.id.timetxt2);
+                            stoptime.stop();
+                            sec = stoptime.getSec();
+                            milliSec = stoptime.getMilliSec();
+                            time_txt2.setText(String.format("%01d", sec) + ":" + String.format("%02d", milliSec));
+
+
+                            screenOne.setOnTouchListener(null); //disable ontouch event of player one
+                            screenTwo.setOnTouchListener(null);
+                            user2gun.setVisibility(View.VISIBLE);
+                            user1dead.setVisibility(View.VISIBLE);
+                            user1ImageView.setVisibility(View.INVISIBLE);
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent intent = getIntent();
+                                    int currentround = intent.getIntExtra("rounds",1); // gets current round number
+                                    if(currentround==rounds){
+                                        //show result
+
+                                        moveToResults();
+                                    }
+                                    else{
+                                        resetGame(currentround);
+                                    }
+                                }
+                            }, 6000);
+
+                        }
+                        return true;
+                    }
+                });
             }
         }, 6000);
         //

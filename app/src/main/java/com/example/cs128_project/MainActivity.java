@@ -121,18 +121,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     public void startGame(View view) {
-        final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
-        Integer color = view.getId();
-        System.out.println("why "+color);
-        if(color==2131361835){//i dont know wtf 
-            globalVariable.setUser1color(R.drawable.amongusred);
-            globalVariable.setUser1gun(R.drawable.redgun);
-            globalVariable.setUser1dead(R.drawable.deadred);
-            globalVariable.setUser2color(R.drawable.amongusred);
-            globalVariable.setUser2gun(R.drawable.redgun);
-            globalVariable.setUser2dead(R.drawable.deadred);
-        }
-
         Intent intent = new Intent(getBaseContext(), Game_Activity.class);
         currentRound = currentRound.substring(6,7);
         intent.putExtra("ROUNDNUM", currentRound);
