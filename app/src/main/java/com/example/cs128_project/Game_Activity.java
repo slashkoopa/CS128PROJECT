@@ -94,11 +94,14 @@ public class Game_Activity extends AppCompatActivity {
 
                     //add p2 dead code here
 
-                    //show result
-                    //resetGame();
-
-                    if(rounds==0){
+                    Intent intent = getIntent();
+                    int currentround = intent.getIntExtra("rounds",0); // gets current round number
+                    if(currentround==rounds){
+                        //show result
                         moveToResults();
+                    }
+                    else{
+                        resetGame(currentround);
                     }
                 }
                 return true;
