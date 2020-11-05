@@ -44,7 +44,7 @@ public class Game_Activity extends AppCompatActivity {
     private ImageView user1dead;
     private ImageView user2dead;
     //placeholder round value should be grabbing from main activity
-    public int rounds;
+    public int rounds, currentround;
     MediaPlayer countvc;
     MediaPlayer shootsnd;
 
@@ -58,6 +58,9 @@ public class Game_Activity extends AppCompatActivity {
         Intent intent = getIntent();
         String srounds = intent.getStringExtra("ROUNDNUM");
         rounds = Integer.parseInt(srounds);
+        final FadingTextView ftxt3=(FadingTextView)findViewById(R.id.fade_text3);
+
+        ftxt3.setText(String.format("Round", currentround));
         gameStart();
 
 
@@ -165,7 +168,7 @@ public class Game_Activity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     Intent intent = getIntent();
-                                    int currentround = intent.getIntExtra("rounds",1); // gets current round number
+                                     currentround = intent.getIntExtra("rounds",1); // gets current round number
                                     if(currentround==rounds){
                                         //show result
 
@@ -204,7 +207,7 @@ public class Game_Activity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     Intent intent = getIntent();
-                                    int currentround = intent.getIntExtra("rounds",1); // gets current round number
+                                    currentround = intent.getIntExtra("rounds",1); // gets current round number
                                     if(currentround==rounds){
                                         //show result
 

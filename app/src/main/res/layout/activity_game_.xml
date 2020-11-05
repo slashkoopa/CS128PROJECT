@@ -98,6 +98,29 @@
         app:layout_constraintVertical_bias="0.499"
         app:srcCompat="@drawable/bang" />
 
+    <com.tomer.fadingtextview.FadingTextView
+        android:id="@+id/fade_text3"
+        android:layout_width="84dp"
+        android:layout_height="55dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="130dp"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="130dp"
+        android:layout_marginRight="130dp"
+        android:gravity="center"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:texts="@array/rounds"
+        app:timeout="1000" />
+
     <RelativeLayout
         android:id="@+id/screenOne"
         android:layout_width="match_parent"
