@@ -1,6 +1,7 @@
 package com.example.cs128_project;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,12 +18,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private Button[] roundButton = new Button[idArray.length];
 
+    MediaPlayer gmtheme;
+
     int i;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //plays sound when running the app
+        gmtheme = MediaPlayer.create(MainActivity.this,R.raw.soundtheme);
 
         // Calling Application class (see application tag in AndroidManifest.xml)
         final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
@@ -122,7 +127,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    protected void onResume(){ //plays music while on standby
+        super.onResume();
+        gmtheme.start();
+        //loops music
+        gmtheme.setLooping(true);
+    }
 
+    @Override
+    protected void onPause(){ //stops music when game is finished
+        super.onPause();
+        gmtheme.release();
+        finish();
+    }
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
