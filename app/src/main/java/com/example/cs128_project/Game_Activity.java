@@ -1,8 +1,10 @@
 package com.example.cs128_project;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.icu.util.ICUUncheckedIOException;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -43,6 +45,12 @@ public class Game_Activity extends AppCompatActivity {
     private ImageView user2dead;
     //placeholder round value should be grabbing from main activity
     public int rounds=3;
+
+    MediaPlayer countvc;
+    MediaPlayer shootsnd;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -53,11 +61,21 @@ public class Game_Activity extends AppCompatActivity {
 
     }
 
+    @SuppressLint("ResourceType")
     public void gameStart(){
         final FadingTextView ftxt=(FadingTextView)findViewById(R.id.fade_text);
         final FadingTextView ftxt2=(FadingTextView)findViewById(R.id.fade_text2);
         final ImageView bangimg =(ImageView)findViewById(R.id.bang);
         GlobalClass globalVariable = (GlobalClass) getApplicationContext();
+
+        shootsnd = MediaPlayer.create(this, R.raw.bangsnd);
+        countvc = MediaPlayer.create(this, R.raw.countbg);
+        countvc.start();
+
+        //sets the sound file into layout to play sound once players clicked the screen
+        screenOne = findViewById(R.raw.gunshot);
+        screenTwo = findViewById(R.raw.gunshot);
+        final MediaPlayer gshot = MediaPlayer.create(this, R.raw.gunshot);
 
         bangimg.setVisibility(View.INVISIBLE);
 
@@ -83,11 +101,13 @@ public class Game_Activity extends AppCompatActivity {
                 if(event.getAction()== MotionEvent.ACTION_DOWN) {
 
                     //maybe shouldve used multithreading for time
+                    gshot.start(); //starts to play sound when player 1 clicks the screen
                     TextView time_txt1 = (TextView) findViewById(R.id.timetxt1);
                     stoptime.stop();
                     sec = stoptime.getSec();
                     milliSec = stoptime.getMilliSec();
                     time_txt1.setText(String.format("%01d", sec) + ":" + String.format("%02d", milliSec));
+
 
                     screenTwo.setOnTouchListener(null); //disable ontouch event of player two
                     user1gun.setVisibility(View.VISIBLE);
@@ -114,11 +134,13 @@ public class Game_Activity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction()== MotionEvent.ACTION_DOWN) {
+                    gshot.start(); //starts to play sound when player 2 clicks the screen
                     TextView time_txt2 = (TextView) findViewById(R.id.timetxt2);
                     stoptime.stop();
                     sec = stoptime.getSec();
                     milliSec = stoptime.getMilliSec();
                     time_txt2.setText(String.format("%01d", sec) + ":" + String.format("%02d", milliSec));
+
 
                     screenOne.setOnTouchListener(null); //disable ontouch event of player one
                     user2gun.setVisibility(View.VISIBLE);
@@ -162,6 +184,7 @@ public class Game_Activity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 bangimg.setVisibility(View.VISIBLE);
+                shootsnd.start();
                 stoptime.start();
                 stoptime2.start();
             }
@@ -185,5 +208,13 @@ public class Game_Activity extends AppCompatActivity {
         intent.putExtra("rounds",currentrounds);
         finish();
         startActivity(intent);
+    }
+
+    @Override
+    protected void onPause(){ //stops music when game is finished
+        super.onPause();
+        countvc.release();
+        shootsnd.release();
+        finish();
     }
 }

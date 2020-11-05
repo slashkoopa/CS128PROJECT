@@ -3,6 +3,7 @@ package com.example.cs128_project;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,10 +16,16 @@ import java.util.Date;
 
 public class game_result extends AppCompatActivity {
 
+    MediaPlayer resultsnd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_result);
+
+        //plays sound after player n won
+        resultsnd = MediaPlayer.create(this,R.raw.winnersnd);
+
         TextView scoreLabel = (TextView) findViewById(R.id.scoreLabel);
         TextView highScoreLabel = (TextView) findViewById(R.id.highScoreLabel);
         //int score = getIntent().getIntExtra("SCORE",0);
@@ -81,5 +88,18 @@ public class game_result extends AppCompatActivity {
 
     public void tryAgain(View view) {
         startActivity(new Intent(getApplicationContext(),MainActivity.class));
+    }
+
+    @Override
+    protected void onResume(){ //plays music while on standby
+        super.onResume();
+        resultsnd.start();
+    }
+
+    @Override
+    protected void onPause(){ //stops music when game is finished
+        super.onPause();
+        resultsnd.release();
+        finish();
     }
 }
