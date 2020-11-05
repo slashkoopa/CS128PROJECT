@@ -42,14 +42,18 @@ public class Game_Activity extends AppCompatActivity {
     private ImageView user1dead;
     private ImageView user2dead;
     //placeholder round value should be grabbing from main activity
-    public int rounds=3;
+
+    public int rounds;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_);
-
+        Intent intent = getIntent();
+        String srounds = intent.getStringExtra("ROUNDNUM");
+        rounds = Integer.parseInt(srounds);
         gameStart();
+
 
     }
 
@@ -95,7 +99,7 @@ public class Game_Activity extends AppCompatActivity {
                     //add p2 dead code here
 
                     Intent intent = getIntent();
-                    int currentround = intent.getIntExtra("rounds",0); // gets current round number
+                    int currentround = intent.getIntExtra("rounds",1); // gets current round number
                     if(currentround==rounds){
                         //show result
                         moveToResults();
@@ -125,7 +129,7 @@ public class Game_Activity extends AppCompatActivity {
 
 
                     Intent intent = getIntent();
-                    int currentround = intent.getIntExtra("rounds",0); // gets current round number
+                    int currentround = intent.getIntExtra("rounds",1); // gets current round number
                     if(currentround==rounds){
                         //show result
                         moveToResults();

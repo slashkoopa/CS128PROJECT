@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     MediaPlayer gmtheme;
 
     int i;
-
+    public String currentRound;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,12 +118,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     public void startGame(View view) {
         Intent intent = new Intent(getBaseContext(), Game_Activity.class);
+        currentRound = currentRound.substring(6,7);
+        intent.putExtra("ROUNDNUM", currentRound);
+        System.out.println("sending... "+currentRound);
         startActivity(intent);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String text = parent.getItemAtPosition(position).toString();
+
+        currentRound = text;
+        getCurrentRound(currentRound);
         Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
     }
 
@@ -144,5 +150,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    public String getCurrentRound(String round){
+        return currentRound=round;
     }
 }
