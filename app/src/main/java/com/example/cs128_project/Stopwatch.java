@@ -64,7 +64,6 @@ public class Stopwatch {
         }
 
         elapsedTime = System.currentTimeMillis() - startTime;
-        double seconds = (double) (elapsedTime / 1000);
         Long tUpdate = tbuff + elapsedTime;
         int sec = (int) (tUpdate / 1000);
         sec = sec % 60;

@@ -1,6 +1,8 @@
 package com.example.cs128_project;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.icu.util.ICUUncheckedIOException;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -39,9 +41,11 @@ public class Game_Activity extends AppCompatActivity {
     private ImageView user2gun;
     private ImageView user1dead;
     private ImageView user2dead;
-
+    //placeholder round value should be grabbing from main activity
+    public int rounds=3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_);
 
@@ -87,8 +91,15 @@ public class Game_Activity extends AppCompatActivity {
 
                     screenTwo.setOnTouchListener(null); //disable ontouch event of player two
                     user1gun.setVisibility(View.VISIBLE);
+
+                    //add p2 dead code here
+
                     //show result
-                    moveToResults();
+                    //resetGame();
+
+                    if(rounds==0){
+                        moveToResults();
+                    }
                 }
                 return true;
             }
@@ -108,8 +119,18 @@ public class Game_Activity extends AppCompatActivity {
 
                     screenOne.setOnTouchListener(null); //disable ontouch event of player one
                     user2gun.setVisibility(View.VISIBLE);
-                    //show result
-                    moveToResults();
+
+
+                    Intent intent = getIntent();
+                    int currentround = intent.getIntExtra("rounds",0); // gets current round number
+                    if(currentround==rounds){
+                        //show result
+                        moveToResults();
+                    }
+                    else{
+                        resetGame(currentround);
+                    }
+
                 }
                 return true;
             }
@@ -152,6 +173,14 @@ public class Game_Activity extends AppCompatActivity {
         extras.putInt("SECONDS",stoptime.getSec());
         intent.putExtras(extras);
         stoptime.reset();
+        startActivity(intent);
+    }
+    //reloads activity with new value
+    public void resetGame(int currentrounds){
+        currentrounds++;
+        Intent intent = getIntent();
+        intent.putExtra("rounds",currentrounds);
+        finish();
         startActivity(intent);
     }
 }
