@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private Button[] roundButton = new Button[idArray.length];
 
     MediaPlayer gmtheme;
+    // Calling Application class (see application tag in AndroidManifest.xml)
 
     int i;
     public String currentRound;
@@ -29,7 +30,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         //plays sound when running the app
         gmtheme = MediaPlayer.create(MainActivity.this,R.raw.soundtheme);
 
-        // Calling Application class (see application tag in AndroidManifest.xml)
         final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
 
         FloatingActionButton floatingActionButton = findViewById(R.id.fab);
@@ -53,7 +53,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             roundButton[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int color = v.getId();
+                    Integer color = v.getId();
+
                     switch(color){
                         case R.id.red:
                             globalVariable.setUser1color(R.drawable.amongusred);
@@ -111,12 +112,27 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                             Toast.makeText(getApplicationContext(), "Player 2 changed color to brown", Toast.LENGTH_SHORT).show();
                             break;
                     }
+
                 }
             });
+
         }
+
     }
 
     public void startGame(View view) {
+        final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
+        Integer color = view.getId();
+        System.out.println("why "+color);
+        if(color==2131361835){//i dont know wtf 
+            globalVariable.setUser1color(R.drawable.amongusred);
+            globalVariable.setUser1gun(R.drawable.redgun);
+            globalVariable.setUser1dead(R.drawable.deadred);
+            globalVariable.setUser2color(R.drawable.amongusred);
+            globalVariable.setUser2gun(R.drawable.redgun);
+            globalVariable.setUser2dead(R.drawable.deadred);
+        }
+
         Intent intent = new Intent(getBaseContext(), Game_Activity.class);
         currentRound = currentRound.substring(6,7);
         intent.putExtra("ROUNDNUM", currentRound);

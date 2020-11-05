@@ -67,7 +67,7 @@ public class Game_Activity extends AppCompatActivity {
     public void gameStart(){
         final FadingTextView ftxt=(FadingTextView)findViewById(R.id.fade_text);
         final FadingTextView ftxt2=(FadingTextView)findViewById(R.id.fade_text2);
-        final ImageView bangimg =(ImageView)findViewById(R.id.bang);
+        final ImageView bangimg =(ImageView)findViewById(R.id.imageView2);
         GlobalClass globalVariable = (GlobalClass) getApplicationContext();
 
         shootsnd = MediaPlayer.create(this, R.raw.bangsnd);
@@ -83,7 +83,6 @@ public class Game_Activity extends AppCompatActivity {
 
         user1ImageView = findViewById(R.id.PlayerChar1);
         user1ImageView.setImageResource(globalVariable.getUser1color());
-
         user2ImageView = findViewById(R.id.PlayerChar2);
         user2ImageView.setImageResource(globalVariable.getUser2color());
 
@@ -91,10 +90,21 @@ public class Game_Activity extends AppCompatActivity {
         user1gun = findViewById(R.id.PlayerGun1);
         user1gun.setImageResource(globalVariable.getUser1gun());
         user1gun.setVisibility(View.INVISIBLE);
+
         //P2 GUN PIC
         user2gun = findViewById(R.id.PlayerGun2);
         user2gun.setImageResource(globalVariable.getUser2gun());
         user2gun.setVisibility(View.INVISIBLE);
+
+        //P1 DEAD PIC
+        user1dead = findViewById(R.id.playerDead1);
+        user1dead.setImageResource(globalVariable.getUser1dead());
+        user1dead.setVisibility(View.INVISIBLE);
+
+        //P2 DEAD PIC
+        user2dead = findViewById(R.id.playerDead2);
+        user2dead.setImageResource(globalVariable.getUser2dead());
+        user2dead.setVisibility(View.INVISIBLE);
 
         screenOne = (RelativeLayout) findViewById(R.id.screenOne); //sets touch listener if the player one touched the screen
         screenOne.setOnTouchListener(new View.OnTouchListener() {
@@ -112,19 +122,28 @@ public class Game_Activity extends AppCompatActivity {
 
 
                     screenTwo.setOnTouchListener(null); //disable ontouch event of player two
+                    screenOne.setOnTouchListener(null);
                     user1gun.setVisibility(View.VISIBLE);
-
+                    user2dead.setVisibility(View.VISIBLE);
+                    user2ImageView.setVisibility(View.INVISIBLE);
                     //add p2 dead code here
 
-                    Intent intent = getIntent();
-                    int currentround = intent.getIntExtra("rounds",1); // gets current round number
-                    if(currentround==rounds){
-                        //show result
-                        moveToResults();
-                    }
-                    else{
-                        resetGame(currentround);
-                    }
+                    //code below will run after 6 seconds
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = getIntent();
+                            int currentround = intent.getIntExtra("rounds",1); // gets current round number
+                            if(currentround==rounds){
+                                //show result
+
+                                moveToResults();
+                            }
+                            else{
+                                resetGame(currentround);
+                            }
+                        }
+                    }, 6000);
                 }
                 return true;
             }
@@ -145,18 +164,25 @@ public class Game_Activity extends AppCompatActivity {
 
 
                     screenOne.setOnTouchListener(null); //disable ontouch event of player one
+                    screenTwo.setOnTouchListener(null);
                     user2gun.setVisibility(View.VISIBLE);
+                    user1dead.setVisibility(View.VISIBLE);
+                    user1ImageView.setVisibility(View.INVISIBLE);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = getIntent();
+                            int currentround = intent.getIntExtra("rounds",1); // gets current round number
+                            if(currentround==rounds){
+                                //show result
 
-
-                    Intent intent = getIntent();
-                    int currentround = intent.getIntExtra("rounds",1); // gets current round number
-                    if(currentround==rounds){
-                        //show result
-                        moveToResults();
-                    }
-                    else{
-                        resetGame(currentround);
-                    }
+                                moveToResults();
+                            }
+                            else{
+                                resetGame(currentround);
+                            }
+                        }
+                    }, 6000);
 
                 }
                 return true;
@@ -219,4 +245,6 @@ public class Game_Activity extends AppCompatActivity {
         shootsnd.release();
         finish();
     }
+
+
 }
