@@ -47,7 +47,7 @@ public class Game_Activity extends AppCompatActivity {
     public int rounds;
     MediaPlayer countvc;
     MediaPlayer shootsnd;
-
+    public int p1points, p2points;
 
 
     @Override
@@ -143,7 +143,7 @@ public class Game_Activity extends AppCompatActivity {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
                         if(event.getAction()== MotionEvent.ACTION_DOWN) {
-
+                            p1points++;
                             //maybe shouldve used multithreading for time
                             gshot.start(); //starts to play sound when player 1 clicks the screen
                             TextView time_txt1 = (TextView) findViewById(R.id.timetxt1);
@@ -187,6 +187,7 @@ public class Game_Activity extends AppCompatActivity {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
                         if(event.getAction()== MotionEvent.ACTION_DOWN) {
+                            p2points++;
                             gshot.start(); //starts to play sound when player 2 clicks the screen
                             TextView time_txt2 = (TextView) findViewById(R.id.timetxt2);
                             stoptime.stop();
@@ -230,6 +231,8 @@ public class Game_Activity extends AppCompatActivity {
         Bundle extras = new Bundle();
         extras.putInt("MILLISEC",stoptime.getMilliSec());
         extras.putInt("SECONDS",stoptime.getSec());
+        extras.putInt("p1points",p1points);
+        extras.putInt("p2points",p2points);
         intent.putExtras(extras);
         stoptime.reset();
         startActivity(intent);
@@ -239,6 +242,8 @@ public class Game_Activity extends AppCompatActivity {
         currentrounds++;
         Intent intent = getIntent();
         intent.putExtra("rounds",currentrounds);
+        intent.putExtra("p1points",p1points);
+        intent.putExtra("p2points",p2points);
         finish();
         startActivity(intent);
     }
