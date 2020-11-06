@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     MediaPlayer gmtheme;
     // Calling Application class (see application tag in AndroidManifest.xml)
-
+    public boolean clicked=false;
     int i;
     public String currentRound;
     @Override
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 @Override
                 public void onClick(View v) {
                     Integer color = v.getId();
-
+                    clicked=true;
                     switch(color){
                         case R.id.red:
                             globalVariable.setUser1color(R.drawable.amongusred);
@@ -121,6 +121,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     public void startGame(View view) {
+        if(clicked==false){
+            final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
+            globalVariable.setUser1color(R.drawable.amongusred);
+            globalVariable.setUser1gun(R.drawable.redgun);
+            globalVariable.setUser1dead(R.drawable.deadred);
+            globalVariable.setUser2color(R.drawable.amongusred);
+            globalVariable.setUser2gun(R.drawable.redgun);
+            globalVariable.setUser2dead(R.drawable.deadred);
+        }
         Intent intent = new Intent(getBaseContext(), Game_Activity.class);
         currentRound = currentRound.substring(6,7);
         intent.putExtra("ROUNDNUM", currentRound);

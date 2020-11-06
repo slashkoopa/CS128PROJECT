@@ -59,6 +59,7 @@ public class    game_result extends AppCompatActivity {
         System.out.println(cal2);
         System.out.println("compare cal to cal2 "+cal.compareTo(cal2));
         System.out.println("compare cal2 to cal "+cal2.compareTo(cal));
+        System.out.println("p1:"+p1points+"   p2:"+p2points);
         if(p1points>p2points){
             dispWinLabel.setText("PLAYER1 WINS!");
         }
