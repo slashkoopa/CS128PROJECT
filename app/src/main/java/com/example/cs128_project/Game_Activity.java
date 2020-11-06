@@ -44,7 +44,7 @@ public class Game_Activity extends AppCompatActivity {
     private ImageView user1dead;
     private ImageView user2dead;
     //placeholder round value should be grabbing from main activity
-    public int rounds, currentround;
+    public int rounds;
     MediaPlayer countvc;
     MediaPlayer shootsnd;
 
@@ -57,9 +57,6 @@ public class Game_Activity extends AppCompatActivity {
         Intent intent = getIntent();
         String srounds = intent.getStringExtra("ROUNDNUM");
         rounds = Integer.parseInt(srounds);
-        final FadingTextView ftxt3=(FadingTextView)findViewById(R.id.fade_text3);
-
-        ftxt3.setText(String.format("Round", currentround));
         gameStart();
 
 
@@ -169,9 +166,12 @@ public class Game_Activity extends AppCompatActivity {
                                 public void run() {
                                     Intent intent = getIntent();
                                     int currentround = intent.getIntExtra("rounds",1); // gets current round number
+<<<<<<< HEAD
                                     int p1points= intent.getIntExtra("p1points",0);
                                     int p2points= intent.getIntExtra("p2points",0);
                                     p1points++;
+=======
+>>>>>>> parent of ccc6d39... round display(halfdone)
                                     if(currentround==rounds){
                                         //show result
 
@@ -210,9 +210,12 @@ public class Game_Activity extends AppCompatActivity {
                                 public void run() {
                                     Intent intent = getIntent();
                                     int currentround = intent.getIntExtra("rounds",1); // gets current round number
+<<<<<<< HEAD
                                     int p2points= intent.getIntExtra("p2points",0);
                                     int p1points = intent.getIntExtra("p1points",0);
                                     p2points++;
+=======
+>>>>>>> parent of ccc6d39... round display(halfdone)
                                     if(currentround==rounds){
                                         //show result
 
