@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class game_result extends AppCompatActivity {
+public class    game_result extends AppCompatActivity {
 
     MediaPlayer resultsnd;
 
@@ -28,10 +28,15 @@ public class game_result extends AppCompatActivity {
 
         TextView scoreLabel = (TextView) findViewById(R.id.scoreLabel);
         TextView highScoreLabel = (TextView) findViewById(R.id.highScoreLabel);
+        TextView dispWinLabel = (TextView) findViewById(R.id.dispwin);
+        TextView hsLabel = (TextView) findViewById(R.id.disphs);
+        hsLabel.setVisibility(View.INVISIBLE);
         //int score = getIntent().getIntExtra("SCORE",0);
         Bundle extras = getIntent().getExtras();
         int millisec = extras.getInt("MILLISEC",0);
         int sec = extras.getInt("SECONDS",0);
+        int p1points = extras.getInt("p1points",0);
+        int p2points = extras.getInt("p2points",0);
         scoreLabel.setText(String.format("%01d", sec) + ":" + String.format("%02d", millisec));
 
         System.out.println("milli: "+millisec);
@@ -54,6 +59,15 @@ public class game_result extends AppCompatActivity {
         System.out.println(cal2);
         System.out.println("compare cal to cal2 "+cal.compareTo(cal2));
         System.out.println("compare cal2 to cal "+cal2.compareTo(cal));
+        if(p1points>p2points){
+            dispWinLabel.setText("PLAYER1 WINS!");
+        }
+        else if(p2points>p1points){
+            dispWinLabel.setText("PLAYER2 WINS");
+        }
+        else if(p1points==p2points){
+            dispWinLabel.setText("DRAW");
+        }
         if((highscore_sec == 0) && (highscore_ms==0)){
             System.out.println("date true");
             highScoreLabel.setText(String.format("%01d", sec) + "." + String.format("%02d", millisec));
@@ -70,7 +84,7 @@ public class game_result extends AppCompatActivity {
             if((cal.compareTo(cal2)==-1)){
                 System.out.println("date true");
                 highScoreLabel.setText(String.format("%01d", sec) + "." + String.format("%02d", millisec));
-
+                hsLabel.setVisibility(View.VISIBLE);
                 //save
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putInt("HIGH_SCOREms",millisec);
@@ -85,7 +99,6 @@ public class game_result extends AppCompatActivity {
             }
         }
     }
-
     public void tryAgain(View view) {
         startActivity(new Intent(getApplicationContext(),MainActivity.class));
     }
