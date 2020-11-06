@@ -102,6 +102,7 @@ public class    game_result extends AppCompatActivity {
     }
     public void tryAgain(View view) {
         startActivity(new Intent(getApplicationContext(),MainActivity.class));
+
     }
 
     @Override

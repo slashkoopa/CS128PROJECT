@@ -242,6 +242,7 @@ public class Game_Activity extends AppCompatActivity {
         stoptime.reset();
         startActivity(intent);
     }
+
     //reloads activity with new value
     public void resetGame(int currentrounds, int p1points, int p2points){
         currentrounds++;
