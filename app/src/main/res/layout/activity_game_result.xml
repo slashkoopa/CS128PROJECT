@@ -25,6 +25,9 @@
 
             android:layout_height="162dp"
 
+            android:layout_gravity="center"
+            android:foregroundGravity="center"
+            android:gravity="center"
             android:text="Game Over"
             android:textColor="#FFFFFF"
             android:textSize="100sp"
@@ -39,7 +42,6 @@
 
             android:foregroundGravity="center"
             android:gravity="center"
-            android:text="Game Over"
             android:textColor="#FFFFFF"
             android:textSize="40sp"
             app:fontFamily="@font/bangers" />

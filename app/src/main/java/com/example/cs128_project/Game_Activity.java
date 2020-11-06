@@ -47,7 +47,6 @@ public class Game_Activity extends AppCompatActivity {
     public int rounds, currentround;
     MediaPlayer countvc;
     MediaPlayer shootsnd;
-    public int p1points, p2points;
 
 
     @Override
@@ -113,6 +112,7 @@ public class Game_Activity extends AppCompatActivity {
         screenOne.setEnabled(false);
         screenTwo.setEnabled(false);
 
+        setRound();
 
         fade_out_anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out);
         ftxt.startAnimation(fade_out_anim);
@@ -124,29 +124,29 @@ public class Game_Activity extends AppCompatActivity {
                 ftxt.clearAnimation();
                 ftxt.stop();
                 ftxt.setVisibility(View.INVISIBLE);
-
                 ftxt2.clearAnimation();
                 ftxt2.stop();
                 ftxt2.setVisibility(View.INVISIBLE);
 
                 Random rand = new Random();
-                int randomNum = rand.nextInt((10 - 5) + 1) + 5;
-                try {
-                    TimeUnit.SECONDS.sleep(randomNum);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                bangimg.setVisibility(View.VISIBLE);
-                shootsnd.start();
-                stoptime.start();
-                stoptime2.start();
-                screenOne.setEnabled(true);
-                screenTwo.setEnabled(true);
+                int randomNum = rand.nextInt((10000 - 5000) + 1) + 5000;
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        bangimg.setVisibility(View.VISIBLE);
+                        shootsnd.start();
+                        stoptime.start();
+                        stoptime2.start();
+                        screenOne.setEnabled(true);
+                        screenTwo.setEnabled(true);
+                    }
+                }, randomNum);
+
                 screenOne.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
                         if(event.getAction()== MotionEvent.ACTION_DOWN) {
-                            p1points++;
+
                             //maybe shouldve used multithreading for time
                             gshot.start(); //starts to play sound when player 1 clicks the screen
                             TextView time_txt1 = (TextView) findViewById(R.id.timetxt1);
@@ -156,8 +156,8 @@ public class Game_Activity extends AppCompatActivity {
                             time_txt1.setText(String.format("%01d", sec) + ":" + String.format("%02d", milliSec));
 
 
-                            screenTwo.setOnTouchListener(null); //disable ontouch event of player two
-                            screenOne.setOnTouchListener(null);
+                            screenTwo.setEnabled(false); //disable ontouch event of player two
+                            screenOne.setEnabled(false);
                             user1gun.setVisibility(View.VISIBLE);
                             user2dead.setVisibility(View.VISIBLE);
                             user2ImageView.setVisibility(View.INVISIBLE);
@@ -168,14 +168,17 @@ public class Game_Activity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     Intent intent = getIntent();
-                                     currentround = intent.getIntExtra("rounds",1); // gets current round number
+                                    int currentround = intent.getIntExtra("rounds",1); // gets current round number
+                                    int p1points= intent.getIntExtra("p1points",0);
+                                    int p2points= intent.getIntExtra("p2points",0);
+                                    p1points++;
                                     if(currentround==rounds){
                                         //show result
 
-                                        moveToResults();
+                                        moveToResults(p1points,p2points);
                                     }
                                     else{
-                                        resetGame(currentround);
+                                        resetGame(currentround,p1points,p2points);
                                     }
                                 }
                             }, 6000);
@@ -185,12 +188,10 @@ public class Game_Activity extends AppCompatActivity {
                 });
 
                 // Calling Application class (see application tag in AndroidManifest.xml)
-
                 screenTwo.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
                         if(event.getAction()== MotionEvent.ACTION_DOWN) {
-                            p2points++;
                             gshot.start(); //starts to play sound when player 2 clicks the screen
                             TextView time_txt2 = (TextView) findViewById(R.id.timetxt2);
                             stoptime.stop();
@@ -199,8 +200,8 @@ public class Game_Activity extends AppCompatActivity {
                             time_txt2.setText(String.format("%01d", sec) + ":" + String.format("%02d", milliSec));
 
 
-                            screenOne.setOnTouchListener(null); //disable ontouch event of player one
-                            screenTwo.setOnTouchListener(null);
+                            screenOne.setEnabled(false); //disable ontouch event of player one
+                            screenTwo.setEnabled(false);
                             user2gun.setVisibility(View.VISIBLE);
                             user1dead.setVisibility(View.VISIBLE);
                             user1ImageView.setVisibility(View.INVISIBLE);
@@ -208,14 +209,17 @@ public class Game_Activity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     Intent intent = getIntent();
-                                    currentround = intent.getIntExtra("rounds",1); // gets current round number
+                                    int currentround = intent.getIntExtra("rounds",1); // gets current round number
+                                    int p2points= intent.getIntExtra("p2points",0);
+                                    int p1points = intent.getIntExtra("p1points",0);
+                                    p2points++;
                                     if(currentround==rounds){
                                         //show result
 
-                                        moveToResults();
+                                        moveToResults(p1points,p2points);
                                     }
                                     else{
-                                        resetGame(currentround);
+                                        resetGame(currentround,p1points,p2points);
                                     }
                                 }
                             }, 6000);
@@ -229,19 +233,20 @@ public class Game_Activity extends AppCompatActivity {
         //
 
     }
-    public void moveToResults(){
+    public void moveToResults(int p1points, int p2points){
         Intent intent = new Intent(getApplicationContext(),game_result.class);
         Bundle extras = new Bundle();
         extras.putInt("MILLISEC",stoptime.getMilliSec());
         extras.putInt("SECONDS",stoptime.getSec());
         extras.putInt("p1points",p1points);
         extras.putInt("p2points",p2points);
+        System.out.println("sending...p1 "+p1points+" p2 "+p2points);
         intent.putExtras(extras);
         stoptime.reset();
         startActivity(intent);
     }
     //reloads activity with new value
-    public void resetGame(int currentrounds){
+    public void resetGame(int currentrounds, int p1points, int p2points){
         currentrounds++;
         Intent intent = getIntent();
         intent.putExtra("rounds",currentrounds);
@@ -250,7 +255,14 @@ public class Game_Activity extends AppCompatActivity {
         finish();
         startActivity(intent);
     }
-
+    public void setRound(){
+        Intent intent = getIntent();
+        int currentround = intent.getIntExtra("rounds",1);
+        final TextView p1roundtxt=(TextView)findViewById(R.id.p1round);
+        final TextView p2roundtxt=(TextView)findViewById(R.id.p2round);
+        p1roundtxt.setText("ROUND "+currentround);
+        p2roundtxt.setText("ROUND "+currentround);
+    }
     @Override
     protected void onPause(){ //stops music when game is finished
         super.onPause();
